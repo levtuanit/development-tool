@@ -6,4 +6,6 @@ public interface Service {
 	String copyFile();
 	
 	String readFile(String filePath);
+	
+//	String selectFolder();
 }

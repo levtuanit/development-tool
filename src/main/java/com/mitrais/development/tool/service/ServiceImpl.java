@@ -7,18 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 
 public class ServiceImpl implements Service {
 
-	public static final String EXTRA_SUCCESS = "Extra Successfully";
-	public static final String EXTRA_FALSE = "Extra false";
+	static final String EXTRA_SUCCESS = "Extra Successfully";
+	static final String EXTRA_FALSE = "Extra false";
 
-//	public static final String READ_FILE_FALSE = "Extra false";
-	public static final String FALSE = "FALSE";
-	public static final String TRUE = "TRUE";
+	static final String FALSE = "FALSE";
+	static final String TRUE = "TRUE";
+
+	public ServiceImpl() {
+
+	}
 
 	@Override
 	public String unzip(String zipFilePath, String destDir) {
@@ -37,7 +39,6 @@ public class ServiceImpl implements Service {
 
 	@Override
 	public String copyFile() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 public class DeploymentToolView extends JFrame {
 
@@ -17,10 +18,22 @@ public class DeploymentToolView extends JFrame {
 	private JFrame mainFrame;
 	private JPanel configPanel;
 	private JPanel installPanel;
+	private JTextField tomcatLocationTxt;
+	private JButton tomcatLocationBtn;
 	private JTabbedPane jTabbedPane;
+
+	
+	public JButton getTomcatLocationBtn() {
+		return tomcatLocationBtn;
+	}
+
+	public void setTomcatLocationBtn(JButton tomcatLocationBtn) {
+		this.tomcatLocationBtn = tomcatLocationBtn;
+	}
 
 	public DeploymentToolView() {
 		createView();
+		showConfigLayout();
 	}
 
 	public void createView() {
@@ -51,6 +64,8 @@ public class DeploymentToolView extends JFrame {
 	}
 	
 	 public void showConfigLayout(){
+		  tomcatLocationTxt = new JTextField(15);
+		  tomcatLocationBtn = new JButton("Select");
 	      JPanel panel = new JPanel();
 	      panel.setSize(500,500);
 	      GridBagLayout layout = new GridBagLayout();
@@ -61,34 +76,19 @@ public class DeploymentToolView extends JFrame {
 	      gbc.fill = GridBagConstraints.HORIZONTAL;
 	      gbc.gridx = 0;
 	      gbc.gridy = 0;
-	      panel.add(new JButton("Button 1"),gbc);
+	      panel.add(tomcatLocationTxt,gbc);
 
 	      gbc.gridx = 1;
 	      gbc.gridy = 0;
-	      panel.add(new JButton("Button 2"),gbc); 
+	      panel.add(tomcatLocationBtn,gbc); 
 
-	      gbc.fill = GridBagConstraints.HORIZONTAL;
-//	      gbc.ipady = 20;   
-	      gbc.gridx = 0;
-	      gbc.gridy = 1;
-	      panel.add(new JButton("Button 3"),gbc); 
-
-	      gbc.gridx = 1;
-	      gbc.gridy = 1;       
-	      panel.add(new JButton("Button 4"),gbc);  
-
-	      gbc.gridx = 0;
-	      gbc.gridy = 2;      
-	      gbc.fill = GridBagConstraints.HORIZONTAL;
-	      gbc.gridwidth = 2;
-	      panel.add(new JButton("Button 5"),gbc); 
 	      configPanel.add(panel);
 	      mainFrame.setVisible(true);  
 	   }
 
-	public static void main(String[] args) {
-			DeploymentToolView deploymentToolView = new DeploymentToolView();
-			deploymentToolView.showConfigLayout();
-	}
+//	public static void main(String[] args) {
+//			DeploymentToolView deploymentToolView = new DeploymentToolView();
+//			deploymentToolView.showConfigLayout();
+//	}
 
 }
