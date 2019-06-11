@@ -20,7 +20,6 @@ public class ServiceImpl implements Service {
 	public static final String FALSE = "FALSE";
 	public static final String TRUE = "TRUE";
 
-	@Override
 	public String unzip(String zipFilePath, String destDir) {
 
 		try {
@@ -35,15 +34,13 @@ public class ServiceImpl implements Service {
 		}
 	}
 
-	@Override
 	public String copyFile() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public String readFile(String filePath) {
-		List<String> list = new ArrayList<>();
+		List<Object> list = new ArrayList();
 
 		try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
 			list = stream.collect(Collectors.toList());
@@ -53,7 +50,6 @@ public class ServiceImpl implements Service {
 			return FALSE;
 		}
 
-		list.forEach(System.out::println);
 		return TRUE;
 	}
 
