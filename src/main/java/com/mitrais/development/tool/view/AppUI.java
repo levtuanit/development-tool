@@ -20,12 +20,14 @@ public class AppUI {
 	 */
 	private void initialize() {
 		frame = new JFrame("Patch Deployment Automation");
-		frame.setBounds(100, 100, 409, 389);
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 700, 530);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 434, 420);
+		tabbedPane.setBorder(null);
+		tabbedPane.setBounds(0, 0, 696, 505);
 		frame.getContentPane().add(tabbedPane);
 
 		JPanel configPanel = ConfigTab.create();
