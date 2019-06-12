@@ -22,8 +22,6 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
 public class InstallationTab {
-	static StringBuilder installationProgress = new StringBuilder();
-
 	public static JPanel create() {
 		JPanel InstallPanel = new JPanel();
 		InstallPanel.setBorder(null);
@@ -35,6 +33,7 @@ public class InstallationTab {
 
 		final JTextField txtPatchFolder = new JTextField();
 		txtPatchFolder.setBounds(10, 26, 582, 20);
+//		txtPatchFolder.setBounds(10, 26, 213, 20);
 		txtPatchFolder.setColumns(10);
 		InstallPanel.add(txtPatchFolder);
 
@@ -45,6 +44,7 @@ public class InstallationTab {
 		final JButton btnInstall = new JButton("Install");
 		btnInstall.setEnabled(false);
 		btnInstall.setBounds(592, 443, 89, 23);
+//		btnInstall.setBounds(10, 278, 89, 23);
 		InstallPanel.add(btnInstall);
 
 		final JButton btnRollBack = new JButton("Rollback");
@@ -185,13 +185,13 @@ public class InstallationTab {
 		return InstallPanel;
 	}
 
-	private static void appendToPane(JTextPane tp, String msg, Color c) {
+	private static void appendToPane(JTextPane txtLog, String msg, Color c) {
 		StyleContext sc = StyleContext.getDefaultStyleContext();
 		AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
 		aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
 		aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-		tp.setCharacterAttributes(aset, false);
-		tp.replaceSelection(msg);
+		txtLog.setCharacterAttributes(aset, false);
+		txtLog.replaceSelection(msg);
 	}
 }

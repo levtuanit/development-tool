@@ -1,14 +1,22 @@
 package com.mitrais.development.tool.view;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-public class AppUI {
+public class AppUI extends JFrame{ 
 
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
-
+	private ConfigTab configTab;
+	private ImageIcon img;
+	private static final String IMG_PATH = "src/images/KMS_Logo.png";
 	public AppUI() {
+		configTab = new ConfigTab();
+		img = new ImageIcon(IMG_PATH);
 		initialize();
+		getFrame().setIconImage(img.getImage());
+		getFrame().setVisible(true);
 	}
 
 	public JFrame getFrame() {
@@ -30,7 +38,7 @@ public class AppUI {
 		tabbedPane.setBounds(0, 0, 696, 505);
 		frame.getContentPane().add(tabbedPane);
 
-		JPanel configPanel = ConfigTab.create();
+		JPanel configPanel = configTab.create();
 		tabbedPane.addTab("Configuration", configPanel);
 		
 		JPanel installPanel = InstallationTab.create();
@@ -38,4 +46,13 @@ public class AppUI {
 		
 		tabbedPane.setSelectedComponent(installPanel);
 	}
+
+	public ConfigTab getConfigTab() {
+		return configTab;
+	}
+
+	public void setConfigTab(ConfigTab configTab) {
+		this.configTab = configTab;
+	}
+	
 }
