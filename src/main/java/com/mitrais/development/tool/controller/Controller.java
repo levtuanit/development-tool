@@ -13,8 +13,8 @@ public class Controller {
 	private final static String SELECT_TITLE = "Choose the Folder";
 	private final static String MISSING_FIELD = "Fill data to all of the fields, please !!!";
 
-	public Controller() {
-		appUI = new AppUI();
+	public Controller(AppUI appUI) {
+		this.appUI = appUI;
 		chooser = new JFileChooser();
 	}
 

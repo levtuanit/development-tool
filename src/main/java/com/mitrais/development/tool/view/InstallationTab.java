@@ -5,24 +5,48 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
+import javax.swing.SwingConstants;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
 public class InstallationTab {
-	public static JPanel create() {
+
+	private JTextField txtPatchFolder;
+	private JButton btnPathFolderSelection;
+	private JButton btnInstall;
+	private JButton btnRollBack;
+	private JLabel lblValidFile;
+
+	public JTextField getTxtPatchFolder() {
+		return txtPatchFolder;
+	}
+
+	public JButton getBtnPathFolderSelection() {
+		return btnPathFolderSelection;
+	}
+
+	public JButton getBtnInstall() {
+		return btnInstall;
+	}
+
+	public JButton getBtnRollBack() {
+		return btnRollBack;
+	}
+
+	public JLabel getLblValidFile() {
+		return lblValidFile;
+	}
+
+	public JPanel create() {
 		JPanel InstallPanel = new JPanel();
 		InstallPanel.setBorder(null);
 		InstallPanel.setLayout(null);
@@ -31,23 +55,21 @@ public class InstallationTab {
 		lblPatchFolder.setBounds(10, 9, 79, 14);
 		InstallPanel.add(lblPatchFolder);
 
-		final JTextField txtPatchFolder = new JTextField();
+		txtPatchFolder = new JTextField();
 		txtPatchFolder.setBounds(10, 26, 582, 20);
-//		txtPatchFolder.setBounds(10, 26, 213, 20);
 		txtPatchFolder.setColumns(10);
 		InstallPanel.add(txtPatchFolder);
 
-		JButton btnPathFolderSelection = new JButton("Select");
+		btnPathFolderSelection = new JButton("Select");
 		btnPathFolderSelection.setBounds(602, 26, 79, 21);
 		InstallPanel.add(btnPathFolderSelection);
 
-		final JButton btnInstall = new JButton("Install");
+		btnInstall = new JButton("Install");
 		btnInstall.setEnabled(false);
 		btnInstall.setBounds(592, 443, 89, 23);
-//		btnInstall.setBounds(10, 278, 89, 23);
 		InstallPanel.add(btnInstall);
 
-		final JButton btnRollBack = new JButton("Rollback");
+		btnRollBack = new JButton("Rollback");
 		btnRollBack.setEnabled(false);
 		btnRollBack.setBounds(493, 443, 89, 23);
 		InstallPanel.add(btnRollBack);
@@ -62,25 +84,13 @@ public class InstallationTab {
 		InstallPanel.add(scrollPane);
 
 		final JTextPane txtLog = new JTextPane();
-		txtLog.setEditable(true);
+		txtLog.setEditable(false);
 		scrollPane.setViewportView(txtLog);
 
-		btnPathFolderSelection.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-				fileChooser.setDialogTitle("Select a patch");
-				fileChooser.setAcceptAllFileFilterUsed(false);
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("patch_yyyymmdd_.zip", "zip");
-				fileChooser.addChoosableFileFilter(filter);
-
-				int returnValue = fileChooser.showOpenDialog(null);
-				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					txtPatchFolder.setText(fileChooser.getSelectedFile().getPath());
-					btnInstall.setEnabled(true);
-				}
-
-			}
-		});
+		lblValidFile = new JLabel("", SwingConstants.RIGHT);
+		lblValidFile.setBounds(368, 57, 224, 14);
+		lblValidFile.setForeground(Color.RED);
+		InstallPanel.add(lblValidFile);
 
 		btnInstall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
