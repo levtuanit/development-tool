@@ -7,13 +7,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import com.mitrais.development.tool.service.InstallService;
+import com.mitrais.development.tool.utils.CommonConstant;
 import com.mitrais.development.tool.utils.Message;
 import com.mitrais.development.tool.view.AppUI;
 import com.mitrais.development.tool.view.InstallationTab;
 
 public class InstallController {
 
-	private static final String ZIP_EXTENSION = "zip";
 	private static final String PATCH_NAME_CONVENTION = "patch_yyyymmdd_.zip";
 	private InstallationTab installationTab;
 	private InstallService installService;
@@ -42,7 +42,8 @@ public class InstallController {
 		JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		fileChooser.setDialogTitle(Message.get("patch-file-selection"));
 		fileChooser.setAcceptAllFileFilterUsed(false);
-		FileNameExtensionFilter filter = new FileNameExtensionFilter(PATCH_NAME_CONVENTION, ZIP_EXTENSION);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(PATCH_NAME_CONVENTION,
+				CommonConstant.ZIP_EXTENSION);
 		fileChooser.addChoosableFileFilter(filter);
 		return fileChooser;
 	}

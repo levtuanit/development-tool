@@ -5,8 +5,6 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -15,12 +13,12 @@ import java.util.Map;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
-//import java.util.zip.ZipEntry;
-//import java.util.zip.ZipFile;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
 public class ZipFileHandler {
+
+	private static final String FORWARD_SLASH = "/";
 
 	public static void unZip(String zipFilePath, String destDir) throws ZipException {
 		ZipFile zipFile = new ZipFile(zipFilePath);
@@ -33,7 +31,7 @@ public class ZipFileHandler {
 		parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
 		// Set the compression level
 		parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
-		ZipFile zipFile = new ZipFile(destDir + ".zip");
+		ZipFile zipFile = new ZipFile(destDir + CommonConstant.ZIP_EXTENSION);
 		zipFile.addFolder(path, parameters);
 	}
 
@@ -108,7 +106,7 @@ public class ZipFileHandler {
 	}
 
 	private static String getPathWithoutRootFolder(String fullPath) {
-		int firstSplashIndex = fullPath.indexOf("/");
+		int firstSplashIndex = fullPath.indexOf(FORWARD_SLASH);
 		return fullPath.substring(firstSplashIndex, fullPath.length());
 	}
 }

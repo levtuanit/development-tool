@@ -18,6 +18,9 @@ public class InstallServiceImpl implements InstallService {
 	@Override
 	public boolean install(String filePath) {
 		// TODO
+		// Backup
+		// Install
+		// Rollback if Error
 		
 		return false;
 	}
