@@ -58,6 +58,7 @@ public class InstallationTab {
 		txtPatchFolder = new JTextField();
 		txtPatchFolder.setBounds(10, 26, 582, 20);
 		txtPatchFolder.setColumns(10);
+		txtPatchFolder.setEditable(false);
 		InstallPanel.add(txtPatchFolder);
 
 		btnPathFolderSelection = new JButton("Select");
@@ -88,7 +89,7 @@ public class InstallationTab {
 		scrollPane.setViewportView(txtLog);
 
 		lblValidFile = new JLabel("", SwingConstants.RIGHT);
-		lblValidFile.setBounds(368, 57, 224, 14);
+		lblValidFile.setBounds(368, 47, 224, 14);
 		lblValidFile.setForeground(Color.RED);
 		InstallPanel.add(lblValidFile);
 
