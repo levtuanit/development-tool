@@ -3,11 +3,15 @@ package com.mitrais.development.tool.service;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 
@@ -21,6 +25,7 @@ public class ServiceImpl implements Service {
 	public static final String FALSE = "FALSE";
 	public static final String TRUE = "TRUE";
 	private static final String DATE_FORMATTER = "yyyyMMdd_HHmmss";
+	private static final String MESSAGE_PROPERTIES = "src/main/resources/message.properties";
 
 	//
 	@Override
@@ -113,4 +118,53 @@ public class ServiceImpl implements Service {
 		return FALSE;
 	}
 
+	@Override
+	public String getMessage(String key) {
+		InputStream input;
+		Properties properties;
+		try {
+			properties = new Properties();
+			input = new FileInputStream(MESSAGE_PROPERTIES);
+			properties.load(input);
+			return properties.getProperty(key);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return "key-not-match";
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return FALSE;
+	}
+
+	@Override
+	public String createFolder(String src) {
+		LocalDateTime dateTime = LocalDateTime.now();
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
+		String createdTime = dateTimeFormatter.format(dateTime);
+		  File file = new File(src + "\\" + createdTime);
+	        if (!file.exists()) {
+	            if (file.mkdir()) {
+	                return file.getPath();
+	            } 
+	        }
+		return FALSE;
+	}
+
+	@Override
+	public String copyDirectory(String source, String destination) {
+		File sourceFile;
+		File destinationFile;
+		try {
+			sourceFile = new File(source);
+			destinationFile = new File(destination);
+			FileUtils.copyDirectory(sourceFile, destinationFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return FALSE;
+	}
+	
+	
+	
 }

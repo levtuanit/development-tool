@@ -1,0 +1,1 @@
+{"environment":"Production","backupPath":"C:\\Users\\Le Van Tuan\\Desktop\\auto_deployment_tool_project","tomcatPath":"C:\\Users\\Le Van Tuan\\Desktop\\auto_deployment_tool_project\\tomcat","hostname":"10.12.2.2","port":"8443","username":"root","password":"1234","schema":"kms"}
