@@ -10,7 +10,7 @@ public interface Service {
 
 	String readFile(String fileName);
 
-	String wirteFile(String fileName, String content);
+	String writeToFile(String fileName, String content);
 	
 	String getMessage(String key);
 	

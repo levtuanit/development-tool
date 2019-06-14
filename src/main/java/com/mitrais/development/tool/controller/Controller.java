@@ -61,7 +61,7 @@ public class Controller {
 					textUsername, textPassword, textSchema);
 			gson = new Gson();
 			String jsonConfiguration = gson.toJson(configuration);
-			serviceImpl.wirteFile(CONFIG_FILE, jsonConfiguration);
+			serviceImpl.writeToFile(CONFIG_FILE, jsonConfiguration);
 			JOptionPane.showMessageDialog(appUI, serviceImpl.getMessage("message-save-succes"));
 		} else {
 			JOptionPane.showMessageDialog(appUI, serviceImpl.getMessage("message-fill-data-pls"), "WARNING",

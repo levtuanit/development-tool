@@ -7,11 +7,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import com.mitrais.development.tool.service.InstallService;
+import com.mitrais.development.tool.utils.Message;
 import com.mitrais.development.tool.view.AppUI;
 import com.mitrais.development.tool.view.InstallationTab;
 
 public class InstallController {
 
+	private static final String ZIP_EXTENSION = "zip";
+	private static final String PATCH_NAME_CONVENTION = "patch_yyyymmdd_.zip";
 	private InstallationTab installationTab;
 	private InstallService installService;
 
@@ -26,8 +29,7 @@ public class InstallController {
 	}
 
 	private void selectFileZip() {
-		JFileChooser fileChooser = openDialogToSelectZipFile();
-
+		JFileChooser fileChooser = this.openDialogToSelectZipFile();
 		int whichChoose = fileChooser.showOpenDialog(null);
 		if (whichChoose == JFileChooser.APPROVE_OPTION) {
 			String path = fileChooser.getSelectedFile().getPath();
@@ -38,27 +40,27 @@ public class InstallController {
 
 	private JFileChooser openDialogToSelectZipFile() {
 		JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		fileChooser.setDialogTitle("Select a patch");
+		fileChooser.setDialogTitle(Message.get("patch-file-selection"));
 		fileChooser.setAcceptAllFileFilterUsed(false);
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("patch_yyyymmdd_.zip", "zip");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(PATCH_NAME_CONVENTION, ZIP_EXTENSION);
 		fileChooser.addChoosableFileFilter(filter);
 		return fileChooser;
 	}
 
 	private void handleValidFile(String path) {
-		boolean isValid = this.installService.checkValidFile(path);
 		JLabel lblValidFile = installationTab.getLblValidFile();
 		JButton btnInstall = installationTab.getBtnInstall();
+		boolean isValid = this.installService.checkValidFile(path);
 		if (isValid) {
 			btnInstall.setEnabled(true);
 			lblValidFile.setText("");
 		} else {
 			btnInstall.setEnabled(false);
-			lblValidFile.setText("File selected is not valid");
+			lblValidFile.setText(Message.get("invalid-file"));
 		}
 	}
 
 	private void installPatch() {
-
+		this.installService.install(installationTab.getTxtPatchFolder().getText());
 	}
 }

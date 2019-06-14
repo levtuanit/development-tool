@@ -5,15 +5,37 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+//import java.util.zip.ZipEntry;
+//import java.util.zip.ZipFile;
+import net.lingala.zip4j.model.ZipParameters;
+import net.lingala.zip4j.util.Zip4jConstants;
 
 public class ZipFileHandler {
+
+	public static void unZip(String zipFilePath, String destDir) throws ZipException {
+		ZipFile zipFile = new ZipFile(zipFilePath);
+		zipFile.extractAll(destDir);
+	}
+
+	public static void zipDirectory(String path, String destDir) throws ZipException {
+		ZipParameters parameters = new ZipParameters();
+		// set compression method to store compression
+		parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
+		// Set the compression level
+		parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
+		ZipFile zipFile = new ZipFile(destDir + ".zip");
+		zipFile.addFolder(path, parameters);
+	}
 
 	public static boolean checkValid(String zipPath) throws IOException {
 		if (!checkIfZipFile(zipPath)) {
@@ -73,10 +95,10 @@ public class ZipFileHandler {
 		// Map<Path, Path>
 		Map<String, String> pathsInZip = new HashMap<String, String>();
 
-		try (ZipFile file = new ZipFile(zipPath)) {
-			final Enumeration<? extends ZipEntry> entries = file.entries();
+		try (java.util.zip.ZipFile file = new java.util.zip.ZipFile(zipPath)) {
+			final Enumeration<? extends java.util.zip.ZipEntry> entries = file.entries();
 			while (entries.hasMoreElements()) {
-				final ZipEntry fullPath = entries.nextElement();
+				final java.util.zip.ZipEntry fullPath = entries.nextElement();
 				String pathWithoutRootFolder = getPathWithoutRootFolder(fullPath.getName());
 				pathsInZip.put(pathWithoutRootFolder, pathWithoutRootFolder);
 			}

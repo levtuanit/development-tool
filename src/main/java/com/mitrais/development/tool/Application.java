@@ -10,9 +10,9 @@ import com.mitrais.development.tool.service.InstallServiceImpl;
 import com.mitrais.development.tool.view.AppUI;
 
 public class Application {
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-		UIManager.setLookAndFeel(
-	            UIManager.getSystemLookAndFeelClassName());
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, UnsupportedLookAndFeelException {
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		AppUI appUI = new AppUI();
 		Controller controller = new Controller(appUI);
 		controller.initController();

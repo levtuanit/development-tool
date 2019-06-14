@@ -15,6 +15,10 @@ import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 
+import com.mitrais.development.tool.utils.FileHandler;
+import com.mitrais.development.tool.utils.Message;
+import com.mitrais.development.tool.utils.ZipFileHandler;
+
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
@@ -25,45 +29,31 @@ public class ServiceImpl implements Service {
 	public static final String FALSE = "FALSE";
 	public static final String TRUE = "TRUE";
 	private static final String DATE_FORMATTER = "yyyyMMdd_HHmmss";
-	private static final String MESSAGE_PROPERTIES = "src/main/resources/message.properties";
 
 	//
 	@Override
 	public String unZip(String zipFilePath, String destDir) {
-		ZipFile zipFile;
 		try {
-			zipFile = new ZipFile(zipFilePath);
-			zipFile.extractAll(destDir);
+			ZipFileHandler.unZip(zipFilePath, destDir);
 			return TRUE;
 		} catch (ZipException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return FALSE;
 		}
-		return FALSE;
 	}
 
 	//
 	@Override
 	public String zipDirectory(String path, String destDir) {
 
-		ZipFile zipFile;
-		LocalDateTime dateTime = LocalDateTime.now();
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
-		String timeForZip = dateTimeFormatter.format(dateTime);
-
-		// Zip parameters
-		ZipParameters parameters = new ZipParameters();
-		// set compression method to store compression
-		parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
-		// Set the compression level
-		parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
-
 		try {
-			zipFile = new ZipFile(destDir + "_" + timeForZip + ".zip");
-			zipFile.addFolder(path, parameters);
-		} catch (Exception e) {
+			ZipFileHandler.zipDirectory(path, destDir);
+			return TRUE;
+		} catch (ZipException e) {
 			e.printStackTrace();
+			return FALSE;
 		}
-		return FALSE;
 	}
 
 	//
@@ -102,38 +92,20 @@ public class ServiceImpl implements Service {
 
 	//
 	@Override
-	public String wirteFile(String fileName, String content) {
-		FileWriter fileWriter;
-		BufferedWriter bufferedWriter;
+	public String writeToFile(String fileName, String content) {
 		try {
-			fileWriter = new FileWriter(fileName);
-			bufferedWriter = new BufferedWriter(fileWriter);
-			bufferedWriter.write(content);
-			bufferedWriter.close();
+			FileHandler.writeToFile(fileName, content);
 			return TRUE;
-
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return FALSE;
 		}
-		return FALSE;
 	}
 
 	@Override
 	public String getMessage(String key) {
-		InputStream input;
-		Properties properties;
-		try {
-			properties = new Properties();
-			input = new FileInputStream(MESSAGE_PROPERTIES);
-			properties.load(input);
-			return properties.getProperty(key);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return "key-not-match";
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return FALSE;
+		return Message.get(key);
 	}
 
 	@Override
@@ -141,12 +113,12 @@ public class ServiceImpl implements Service {
 		LocalDateTime dateTime = LocalDateTime.now();
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
 		String createdTime = dateTimeFormatter.format(dateTime);
-		  File file = new File(src + "\\" + createdTime);
-	        if (!file.exists()) {
-	            if (file.mkdir()) {
-	                return file.getPath();
-	            } 
-	        }
+		File file = new File(src + "\\" + createdTime);
+		if (!file.exists()) {
+			if (file.mkdir()) {
+				return file.getPath();
+			}
+		}
 		return FALSE;
 	}
 
@@ -164,7 +136,5 @@ public class ServiceImpl implements Service {
 
 		return FALSE;
 	}
-	
-	
-	
+
 }

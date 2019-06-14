@@ -1,6 +1,7 @@
 package com.mitrais.development.tool.view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -52,6 +53,7 @@ public class InstallationTab {
 		InstallPanel.setLayout(null);
 
 		JLabel lblPatchFolder = new JLabel("Patch file");
+		lblPatchFolder.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblPatchFolder.setBounds(10, 9, 79, 14);
 		InstallPanel.add(lblPatchFolder);
 
@@ -62,20 +64,24 @@ public class InstallationTab {
 		InstallPanel.add(txtPatchFolder);
 
 		btnPathFolderSelection = new JButton("Select");
+		btnPathFolderSelection.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnPathFolderSelection.setBounds(602, 26, 79, 21);
 		InstallPanel.add(btnPathFolderSelection);
 
 		btnInstall = new JButton("Install");
+		btnInstall.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnInstall.setEnabled(false);
 		btnInstall.setBounds(592, 443, 89, 23);
 		InstallPanel.add(btnInstall);
 
 		btnRollBack = new JButton("Rollback");
+		btnRollBack.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnRollBack.setEnabled(false);
 		btnRollBack.setBounds(493, 443, 89, 23);
 		InstallPanel.add(btnRollBack);
 
 		JLabel lblLog = new JLabel("Log");
+		lblLog.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblLog.setBounds(10, 57, 46, 14);
 		InstallPanel.add(lblLog);
 
